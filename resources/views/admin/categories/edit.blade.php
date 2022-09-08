@@ -20,12 +20,12 @@
 
     <div class="mb-3">
         <label>English Name</label>
-        <input type="text" name="name_en" placeholder="English Name" class="form-control" value="{{ $category->name }}" />
+        <input type="text" name="name_en" placeholder="English Name" class="form-control" value="{{ $category->name_en }}" />
     </div>
 
     <div class="mb-3">
         <label>Arabic Name</label>
-        <input type="text" name="name_ar" placeholder="Arabic Name" class="form-control" value="{{ $category->name }}" />
+        <input type="text" name="name_ar" placeholder="Arabic Name" class="form-control" value="{{ $category->name_ar }}" />
     </div>
 
     <div class="mb-3">
@@ -39,7 +39,7 @@
         <select name="parent_id" class="form-control">
             <option value="">Select</option>
             @foreach ($categories as $item)
-                <option {{ $category->parent_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
+                <option {{ $category->parent_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->trans_name }}</option>
             @endforeach
         </select>
     </div>
