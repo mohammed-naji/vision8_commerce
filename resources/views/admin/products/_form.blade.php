@@ -1,3 +1,44 @@
+@section('styles')
+<style>
+    .album {
+        display: flex;
+        margin-top: 10px
+    }
+
+    .album-item {
+        margin: 0 10px;
+        position: relative;
+    }
+    .album-item img {
+        width: 80px;
+        height: 60px;
+        object-fit: cover;
+    }
+
+    .album-item a {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        width: 15px;
+        height: 15px;
+        background: #f00;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 9px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        transition: all .3s ease;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.21);
+    }
+
+    .album-item a:hover {
+        background: #333;
+    }
+</style>
+@stop
+
 <div class="row">
     <div class="col-md-6">
         <div class="mb-3">
@@ -26,10 +67,14 @@
 <div class="mb-3">
     <label>Album</label>
     <input type="file" name="album[]" multiple class="form-control" />
-    @foreach ($product->album as $img)
-        <a href="{{ route('admin.products.delete_image', $img->id) }}">Delete</a>
-        <img width="60" src="{{ asset('uploads/products/'.$img->path) }}" alt="">
-    @endforeach
+    <div class="album">
+        @foreach ($product->album as $img)
+            <div class="album-item">
+                <a href="{{ route('admin.products.delete_image', $img->id) }}"><i class="fas fa-times"></i></a>
+                <img width="60" src="{{ asset('uploads/products/'.$img->path) }}" alt="">
+            </div>
+        @endforeach
+    </div>
 </div>
 
 <div class="mb-3">
@@ -70,7 +115,7 @@
     <select name="category_id" class="form-control">
         <option value="">Select</option>
         @foreach ($categories as $item)
-            <option value="{{ $item->id }}">{{ $item->trans_name }}</option>
+            <option @selected($product->category_id == $item->id) value="{{ $item->id }}">{{ $item->trans_name }}</option>
         @endforeach
     </select>
 </div>
