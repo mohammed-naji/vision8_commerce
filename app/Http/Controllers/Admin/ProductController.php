@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -70,9 +71,17 @@ class ProductController extends Controller
             'ar' => $request->content_ar,
         ], JSON_UNESCAPED_UNICODE);
 
+        $slugcount = Product::where('slug','like', '%'. Str::slug($request->name_en) . '%')->count();
+
+        $slug = Str::slug($request->name_en);
+        if($slugcount) {
+            $slug = Str::slug($request->name_en).'-'.$slugcount;
+        }
+
         // Store Data To Data base
         $product = Product::create([
             'name' => $name,
+            'slug' => $slug,
             'image' => $img_name,
             'content' => $content,
             'price' => $request->price,
