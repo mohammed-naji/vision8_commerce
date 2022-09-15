@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Review;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {
@@ -45,5 +47,32 @@ class SiteController extends Controller
         $products = Product::orderByDesc('id')->where('name', 'like', '%'.$request->q.'%')->paginate(6);
 
         return view('site.search', compact('products'));
+    }
+
+    public function product($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        if(!$product) {
+            abort(404);
+        }
+
+        $next = Product::where('id', '>', $product->id)->first();
+        $prev = Product::where('id', '<', $product->id)->orderByDesc('id')->first();
+
+        $related = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
+
+        return view('site.product', compact('product', 'next', 'prev', 'related'));
+    }
+
+    public function product_review(Request $request)
+    {
+        Review::create([
+            'comment' => $request->comment,
+            'star' => $request->rating,
+            'product_id' => $request->product_id,
+            'user_id' => Auth::id()
+        ]);
+
+        return redirect()->back();
     }
 }
