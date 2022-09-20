@@ -85,7 +85,9 @@
                             @php
                                 $total = 0;
                             @endphp
-                            @foreach (auth()->user()->carts as $cart)
+							{{-- @if (Auth::check()) --}}
+							@auth
+							@foreach (auth()->user()->carts as $cart)
                             <!-- Cart Item -->
                             <div class="media">
                                 <a class="pull-left" href="{{ route('site.product', $cart->product->slug) }}">
@@ -99,12 +101,14 @@
                                     </div>
                                     <h5><strong>${{ $cart->quantity * $cart->price }}</strong></h5>
                                 </div>
-                                <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
+                                <a href="{{ route('site.remove_cart', $cart->id) }}" class="remove"><i class="tf-ion-close"></i></a>
                             </div><!-- / Cart Item -->
                             @php
                                 $total += $cart->quantity * $cart->price;
                             @endphp
                             @endforeach
+							@endauth
+
 
 
 							<div class="cart-summary">
@@ -112,8 +116,8 @@
 								<span class="total-price">${{ number_format($total, 2) }}</span>
 							</div>
 							<ul class="text-center cart-buttons">
-								<li><a href="cart.html" class="btn btn-small">View Cart</a></li>
-								<li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
+								<li><a href="{{ route('site.cart') }}" class="btn btn-small">View Cart</a></li>
+								<li><a href="{{ route('site.checkout') }}" class="btn btn-small btn-solid-border">Checkout</a></li>
 							</ul>
 						</div>
 
