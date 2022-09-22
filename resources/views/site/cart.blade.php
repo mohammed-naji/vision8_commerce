@@ -26,6 +26,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <div class="block">
                             <div class="product-list">
+                                @if (auth()->user()->carts->count() > 0)
                                 <form method="post" action="{{ route('site.update_cart') }}">
                                     @csrf
                                     <table class="table">
@@ -66,6 +67,12 @@
                                     <button class="btn btn-solid-border">Update Cart</button>
                                     <a href="{{ route('site.checkout') }}" class="btn btn-main pull-right">Checkout</a>
                                 </form>
+                                @else
+                                <div class="text-center">
+                                <a href="{{ route('site.shop') }}" class="btn btn-main">Shop Now</a>
+                                </div>
+                                @endif
+
                             </div>
                         </div>
                     </div>

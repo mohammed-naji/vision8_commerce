@@ -1,13 +1,17 @@
 <?php
 
+use App\Mail\InvoiceMail;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\SiteController;
+use App\Notifications\NewOrderNotification;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
@@ -54,4 +58,23 @@ Route::prefix(LaravelLocalization::setLocale())->group(function(){
     Route::get('/payment/success', [CartController::class, 'success'])->name('site.success')->middleware('auth');
     Route::get('/payment/fail', [CartController::class, 'fail'])->name('site.fail')->middleware('auth');
 
+});
+
+
+// Dont Do This Just For Test Only
+Route::get('send-notification', function() {
+
+    // $user = Auth::user();
+
+    // Mail::to($user->email)->send( new InvoiceMail() );
+
+    // $user->notify(new NewOrderNotification());
+
+});
+
+
+Route::get('invoice', function() {
+    // return view('pdf.invoice');
+    $pdf = Pdf::loadView('pdf.invoice');
+    $pdf->save('invoices/latest.pdf');
 });

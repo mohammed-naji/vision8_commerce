@@ -289,8 +289,7 @@
     <!-- Main Js File -->
     <script src="{{ asset('siteassets/js/script.js') }}"></script>
 
-
-
+    @yield('scripts')
   </body>
 
 <!-- Mirrored from demo.themefisher.com/aviato/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 Aug 2022 11:27:48 GMT -->
