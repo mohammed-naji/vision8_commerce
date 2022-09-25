@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Mail\InvoiceMail;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -162,7 +163,9 @@ class CartController extends Controller
             }
 
             // Send Invoice
-            Mail::to(Auth()->user()->email)->send( new InvoiceMail() );
+            $invname = rand().rand().'.pdf';
+            Pdf::loadView('pdf.invoice', ['order' =>  $order])->save('invoices/'.$invname);
+            Mail::to(Auth()->user()->email)->send( new InvoiceMail(Auth::user()->name, $invname) );
 
             // redirect to success page
             return redirect()->route('site.success');

@@ -67,7 +67,7 @@
         }
     </style>
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @yield('styles')
 </head>
 
@@ -279,6 +279,11 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('adminassets/js/sb-admin-2.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        var userId = '{{ Auth::id() }}'
+    </script>
+    @vite(['resources/js/app.js'])
     @yield('scripts')
 </body>
 

@@ -7,6 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    Invoice
+    <h1>Dear {{ $name }}</h1>
+
+    <br>
+
+    <p>Thank you for shopping on our website</p>
+    <p>PFA to the invoice</p>
+
+    <br>
+    <br>
+
+    <p>Best Regards</p>
+
 </body>
 </html>

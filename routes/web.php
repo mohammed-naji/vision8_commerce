@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Models\Order;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
@@ -60,21 +61,4 @@ Route::prefix(LaravelLocalization::setLocale())->group(function(){
 
 });
 
-
-// Dont Do This Just For Test Only
-Route::get('send-notification', function() {
-
-    // $user = Auth::user();
-
-    // Mail::to($user->email)->send( new InvoiceMail() );
-
-    // $user->notify(new NewOrderNotification());
-
-});
-
-
-Route::get('invoice', function() {
-    // return view('pdf.invoice');
-    $pdf = Pdf::loadView('pdf.invoice');
-    $pdf->save('invoices/latest.pdf');
-});
+include 'test.php';
