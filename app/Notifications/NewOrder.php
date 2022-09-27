@@ -3,9 +3,10 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\VonageMessage;
 
 class NewOrder extends Notification
 {
@@ -31,7 +32,7 @@ class NewOrder extends Notification
      */
     public function via($notifiable)
     {
-        $notification_channel = 'database,broadcast';
+        $notification_channel = 'database,broadcast,vonage';
         $channels = explode(',', $notification_channel);
         return $channels;
     }
@@ -48,6 +49,11 @@ class NewOrder extends Notification
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
+    }
+    public function toVonage($notifiable)
+    {
+        return (new VonageMessage)
+                    ->content('Test Message');
     }
 
     // public function toDatabase()

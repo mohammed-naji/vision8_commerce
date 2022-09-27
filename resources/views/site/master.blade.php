@@ -53,6 +53,9 @@
 					    <span>0129- 12323-123123</span>
                     </a>
 
+                    <br>
+                    <img width="25" src="http://openweathermap.org/img/wn/{{ $weather['weather'][0]['icon'] }}@2x.png" alt=""> : {{ $weather['main']['temp'] }}°C
+
                     {{-- <a href="mailto:malqumbuz@gmail.com">malqumbuz@gmail.com</a> --}}
 				</div>
 			</div>

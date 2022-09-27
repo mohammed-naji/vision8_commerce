@@ -66,4 +66,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function routeNotificationForVonage($notification)
+    {
+        return $this->phone;
+    }
 }

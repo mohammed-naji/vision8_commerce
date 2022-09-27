@@ -15,6 +15,8 @@ class SiteController extends Controller
         $products_slider = Product::orderByDesc('id')->take(3)->get();
         $categories = Category::orderByDesc('id')->take(3)->get();
         $products_latest = Product::orderByDesc('id')->take(9)->offset(3)->get();
+
+        // $name = 'Mohammed Naji Abu Alqumbuz';
         return view('site.index', compact('products_slider', 'categories', 'products_latest'));
     }
 
