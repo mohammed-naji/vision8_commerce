@@ -46,6 +46,11 @@
 
 <script>
 
+    // XMLHttpRequest
+    // Fetch API
+    // Jquery Ajax
+    // Axios
+
 axios.get('https://jsonplaceholder.typicode.com/posts')
   .then(function (response) {
     response.data.forEach(post => {
